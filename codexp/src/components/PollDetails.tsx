@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+
+//Especifica as propriedades que serão passadas para o PollDetailsProps
 interface PollDetailsProps {
   question: string;
   options: string[];
@@ -10,6 +12,8 @@ interface PollDetailsProps {
   onHandleBack: () => void;
 }
 
+
+//Desestrutura os props e valida com a interface acima, além de exportar a função para outros componentes
 export default function PollDetails({
   question,
   options,
@@ -23,7 +27,7 @@ export default function PollDetails({
 
   const now = new Date();
 
-  // Verificações seguras
+  // Validações para o formato da data
   const start = startDate ? new Date(startDate) : null;
   const end = endDate ? new Date(endDate) : null;
 
@@ -37,12 +41,14 @@ export default function PollDetails({
     <div className="max-w-xl mx-auto bg-white p-8 rounded shadow-md/30 mt-10">
       <h2 className="text-xl font-bold mb-2">{question}</h2>
       <p className="text-gray-500 mb-4">
+        {/*Verifica se a data da enquete é valida para votação*/}
         {isPollActive ? "Escolha uma resposta" : "Esta enquete não está ativa no momento"}
       </p>
 
       <form className="space-y-3 mb-6">
         {options.map((option, index) => (
           <label key={index} className="flex items-center space-x-2">
+            {/*Verifica se a data da enquete é valida para votação*/}
             <input
               type="radio"
               name="poll"
@@ -58,6 +64,7 @@ export default function PollDetails({
       </form>
 
       <div className="flex gap-4">
+        {/*Verifica se a data da enquete é valida para votação*/}
         <button
           onClick={() => onVote(selectedOptionIndex!)}
           disabled={selectedOptionIndex === null || !isPollActive}

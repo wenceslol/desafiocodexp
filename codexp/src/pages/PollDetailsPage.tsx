@@ -70,7 +70,7 @@ export default function PollDetailsPage() {
       endDate={poll.endDate}
       onVote={handleVote} // Passa a função handleVote para o onVote
       onViewResults={handleViewResults} // Passa a função de redirecionamento
-      onHandleBack={handleBack}
+      onHandleBack={handleBack} // Passa a função de redirecionamento
     />
   );
 }

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+//Declarando os tipos de informações a serem recebidas
 interface PollOption {
   label: string;
   votes: number;
 }
 
+//Declarando os tipos de informações a serem recebidas
 interface Poll {
   id: number;
   title: string;
@@ -13,11 +15,13 @@ interface Poll {
   votes: number[];
 }
 
+//
 const PollResultsPage: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [poll, setPoll] = useState<Poll | null>(null);
 
+  //carrega as informações do armazenamento local
   useEffect(() => {
     const storedPolls = localStorage.getItem("polls");
     const polls = storedPolls ? JSON.parse(storedPolls) : [];
@@ -27,12 +31,15 @@ const PollResultsPage: React.FC = () => {
     setPoll(foundPoll || null);
   }, [id]);
 
+  //função para retornar a votação da enquete selecionada
   const handleBack = () => {
     navigate(`/poll/${id}`);
   };
 
+  //validação caso não exista enquete
   if (!poll) return <div className="text-center text-gray-700">Enquete não encontrada.</div>;
 
+  //mapeando cada opção de voto
   const totalVotes = poll.votes.reduce((sum, vote) => sum + vote, 0);
   const pollOptions: PollOption[] = poll.options.map((option, index) => ({
     label: option,
@@ -44,6 +51,7 @@ const PollResultsPage: React.FC = () => {
       <div className="bg-white p-6 mt-10 rounded-lg shadow-md/30 w-full max-w-md">
         <h2 className="text-2xl font-bold text-gray-800 mb-4 text-start">{poll.title}</h2>
         <div className="space-y-4">
+          {/*Lógica para calcular o tamanho das barras*/}
           {pollOptions.map((option, index) => {
             const percentage = totalVotes > 0 ? (option.votes / totalVotes) * 100 : 0;
             return (

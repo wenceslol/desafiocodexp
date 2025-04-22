@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
+//Especifica as propriedades que o objeto Poll vai receber
 export type Poll = {
   id: number;
   title: string;
@@ -12,8 +13,9 @@ export type Poll = {
 
 export default function PollList() {
   const [status, setStatus] = useState('Todas');
-  const [polls, setPolls] = useState<Poll[]>([]);
+  const [polls, setPolls] = useState<Poll[]>([]); //armazena as informações na const polls
 
+  //useEffect para carregar a lista de enquetes no armazenamento local
   useEffect(() => {
     const storedPolls = localStorage.getItem('polls');
     const parsedPolls = storedPolls ? JSON.parse(storedPolls) : [];
@@ -26,7 +28,8 @@ export default function PollList() {
   const filteredPolls = polls.filter(poll => {
     const start = new Date(poll.startDate);
     const end = new Date(poll.endDate);
-
+    
+    //lógica dos filtros
     if (status === 'Todas') return true;
     if (status === 'Ativas') return start <= now && now <= end;
     if (status === 'Encerradas') return now > end;

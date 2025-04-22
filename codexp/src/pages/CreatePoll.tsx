@@ -2,32 +2,38 @@ import React, { useState } from 'react';
 import addIcon from '../assets/addIcon.png';
 import removeIcon from '../assets/removeIcon.png';
 
+
+//Exporta a função além de configurar o useState para armazenar as informações
 export default function CreatePoll() {
   const [title, setTitle] = useState('');
   const [options, setOptions] = useState(['', '', '']);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
+  //Função para limpar os dados locais
   const clearAllData = () => {
     localStorage.clear();
     console.log('Todos os dados do localStorage foram apagados');
   };
 
+  //Caixa de digitação das enquetes
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...options];
     newOptions[index] = value;
     setOptions(newOptions);
   };
 
+  //Adiciona novos campos
   const addOption = () => {
     setOptions([...options, '']);
   };
 
+  //Remove um campo já existente
   const removeOption = (index: number) => {
     setOptions(options.filter((_, i) => i !== index));
   };
   
-
+  //Submete o formulário da Enquete
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   
@@ -50,9 +56,10 @@ export default function CreatePoll() {
     const updatedPolls = [...existingPolls, pollData];
     localStorage.setItem('polls', JSON.stringify(updatedPolls));
   
+    //para fins de validação
     console.log('Enquete salva:', pollData);
   
-    // Limpa o formulário
+    // Limpa os campos do formulário
     setTitle('');
     setOptions(['', '', '']);
     setStartDate('');
@@ -142,7 +149,7 @@ export default function CreatePoll() {
         {/* Botão de Limpar Enquetes dentro do formulário, mas sem ser o botão de submit */}
         <div className="flex justify-center w-full mt-4">
           <button
-            type="button"  // Definido como "button" para não acionar o submit
+            type="button"  // Definido como "button" para não acionar o submit do formulário
             onClick={clearAllData}
             className="w-50 py-2 px-4 bg-red text-white font-semibold rounded-md hover:bg-darkred"
           >
