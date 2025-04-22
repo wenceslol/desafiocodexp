@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+    --color-blue: #546DD8;
+    --color-darkblue: #5064BC;
+
+    --color-red: #d83232;
+    --color-darkred: #b83232;
+
+    --color-gray: #ABABAB;
+    --color-darkgray: #576061;
+
+    --color-whitebg: #F6F6F6;
+
+    --font-display: "Open_Sans";
+
+}
+
+.custom-select {
+    appearance: none;
+    background-image: url('./assets/dropIcon.png'); /* Substitua pelo caminho correto */
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 18px 14px;
+  }
